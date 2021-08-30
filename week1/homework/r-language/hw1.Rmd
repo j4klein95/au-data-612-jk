@@ -1,0 +1,77 @@
+---
+title: "AU Stat 612 - Week 1"
+output: html_notebook
+---
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+1)  Use and show R code to produce all even integers greater than 7 but less than 101.
+```{r}
+for (variable in 7:101) {
+  if (variable %% 2 == 0) {
+    print(variable)
+  }
+}
+```
+2)  Use and show R code to find the mean of all positive integers less than 100.
+```{r}
+for (integer in 0:100) {
+  c <- append(c, integer)
+}
+
+mean(c)
+```
+3) Write a function (using r code and structure demonstrated in class) to calculate a z score for a given observed value, a mean, and a standard deviation value. And then use your function to find a z score for the following problem. (Research the internet to find the formula used to calculate a z score)Observed value = 25.77,  mean =  23.54,  standard deviation = 2.442
+4)  Use and show R code to round your z score answer in problem 3 to the nearest tenth
+```{r}
+get_dat_z_score_bb <- function(obv, mean_num, std_dev_numb, round=FALSE){
+  z_score = (obv - mean_num)/std_dev_numb
+  
+  if (round == TRUE) {
+    rounded_z_score <- round(z_score, digits = 2)
+    return(rounded_z_score)
+  }
+  
+  return(z_score)
+}
+
+print(get_dat_z_score_bb(25.77, 23.54, 2.442))
+print(get_dat_z_score_bb(25.77, 23.54, 2.442, round = TRUE))
+```
+
+5)  Write a function (using r code and the structure demonstrated in class) to calculate the natural log of a number multiplied by the common log of the same number divided by the cube root of a given prime number.Use your function to find the answer if the number to be used for both log expressions is 32 and the given prime number is 11.
+6)  Use and show R code to round your answer in problem 5 to the nearest hundredth.
+```{r}
+calc_func <- function(num, prime_num){
+   result = (log(num) * log10(num)) / (prime_num^(1/3))
+   return(result)
+}
+
+print(calc_func(32, 11))
+
+print(round(calc_func(32, 11), digits = 3))
+```
+```{r}
+help("^")
+```
+7)  Write a function (using r code and the structure demonstrated in class) that will create the first10 squares of positive odd integers.  That is your function will give you the following output.   1, 9, 25, 49, ..., 361 when you input values 1 to 10.
+```{r}
+first_10_squares_odd <- function(min_value, max_value){
+  c <- vector()
+  for (variable in min_value:max_value) {
+    if ((variable %% 2) != 0) {
+      squared_value <- variable^2
+      print(squared_value)
+      c <- append(c, squared_value)
+    }
+  }
+  return(c)
+}
+
+new_v <- first_10_squares_odd(1, 10)
+print(new_v)
+```
+
