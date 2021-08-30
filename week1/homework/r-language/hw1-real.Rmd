@@ -1,13 +1,9 @@
 ---
-title: "AU Stat 612 - Week 1"
-output: html_notebook
+title: "AU-STATS612-Week1-HW"
+author: "Jared 'Jay' Klein"
+date: "8/30/2021"
+output: word_document
 ---
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
 1)  Use and show R code to produce all even integers greater than 7 but less than 101.
 ```{r}
 for (variable in 7:101) {
@@ -18,7 +14,7 @@ for (variable in 7:101) {
 ```
 2)  Use and show R code to find the mean of all positive integers less than 100.
 ```{r}
-for (integer in 0:100) {
+for (integer in 0:99) {
   c <- append(c, integer)
 }
 
@@ -74,4 +70,3 @@ first_10_squares_odd <- function(min_value, max_value){
 new_v <- first_10_squares_odd(1, 10)
 print(new_v)
 ```
-
