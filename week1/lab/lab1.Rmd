@@ -1,0 +1,61 @@
+---
+title: "Lab-1"
+author: "Jared 'Jay' Klein"
+date: "8/30/2021"
+output: word_document
+---
+1) Use and show R code to find the square root of 63,504.
+```{r}
+sqrt(63504)
+```
+2) Use and show R code to log10(45000) 
+```{r}
+log10(45000)
+```
+3) Use and show R code to evaluate ln(23.05) 
+```{r}
+log(23.05)
+```
+4) Use and show R code to write all integers from 15 to 1 in decreasing order. 
+```{r}
+c <- seq(from = 15, to = 1)
+for (variable in c) {
+  print(variable)
+}
+```
+5) Use and show R code to find the mean of all prime numbers 3 to 17 inclusive. 
+```{r}
+# install.packages("matlab")
+library(matlab)
+
+c <- vector()
+for (number in 3:17) {
+  if (isprime(number)) {
+    c <- append(c, number)
+  }
+}
+
+print(c)
+print(mean(c))
+```
+
+6) Use and show R code to round 17.3838 to the nearest hundredth
+```{r}
+round(17.3838, digits = 3)
+```
+7) Use and show R code to evaluate the expression 7(53 – 2)2 
+```{r}
+7*(53-2)*2
+```
+8) Use R code to write a function that will calculate the volume of a cylinder. The following formula will be helpful, V = πr 2h.  Then use your function to calculate the volume of a cylinder that has a radius of 25 and a height of 10
+```{r}
+vol_of_cyl <- function(radius, height){
+  volume <- pi*(radius^2)*height
+  return(volume)
+}
+```
+
+```{r}
+vol_of_cyl(radius = 25, height = 10)
+```
+
