@@ -38,9 +38,7 @@ for (number in 3:17) {
 print(c)
 print(mean(c))
 ```
-```{r}
-help("round")
-```
+
 6) Use and show R code to round 17.3838 to the nearest hundredth
 ```{r}
 round(17.3838, digits = 3)
@@ -56,6 +54,7 @@ vol_of_cyl <- function(radius, height){
   return(volume)
 }
 ```
+
 ```{r}
 vol_of_cyl(radius = 25, height = 10)
 ```

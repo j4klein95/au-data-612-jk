@@ -70,3 +70,34 @@ first_10_squares_odd <- function(min_value, max_value){
 new_v <- first_10_squares_odd(1, 10)
 print(new_v)
 ```
+```{r}
+library(schoolmath)
+
+first_10_squares_check <- function(min_value, max_value){
+  c <- c()
+  for (variable in min_value:max_value) {
+    if (is.odd(variable)) {
+      squared_value <- variable^2
+      c <- append(c, squared_value)
+    }
+  }
+  return(c)
+}
+```
+```{r}
+print(first_10_squares_check(1, 10))
+```
+```{r}
+first_10_sqr_nxt <- function(min_value, max_value){
+  values <- min_value:max_value
+  new_value_vector <- values[values %% 2 != 0]
+  new_value_vector <- new_value_vector^2
+  return(new_value_vector)
+}
+
+first_10_sqr_nxt(1, 10)
+```
+
+
+
+
