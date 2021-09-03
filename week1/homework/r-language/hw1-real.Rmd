@@ -1,33 +1,28 @@
 ---
-title: "AU-STATS612-Week1-HW"
-author: "Jared 'Jay' Klein"
-date: "8/30/2021"
+title: "Homework1"
+author: "Olivia Triska, Jared 'Jay' Klein"
+date: "9/3/2021"
 output: word_document
 ---
 1)  Use and show R code to produce all even integers greater than 7 but less than 101.
 ```{r}
-for (variable in 7:101) {
-  if (variable %% 2 == 0) {
-    print(variable)
-  }
-}
+N<-7:101
+N<-N[N %% 2 == 0]
+print(N)
 ```
 2)  Use and show R code to find the mean of all positive integers less than 100.
 ```{r}
-for (integer in 0:99) {
-  c <- append(c, integer)
-}
-
-mean(c)
+X<-0:99
+mean(X)
 ```
 3) Write a function (using r code and structure demonstrated in class) to calculate a z score for a given observed value, a mean, and a standard deviation value. And then use your function to find a z score for the following problem. (Research the internet to find the formula used to calculate a z score)Observed value = 25.77,  mean =  23.54,  standard deviation = 2.442
 4)  Use and show R code to round your z score answer in problem 3 to the nearest tenth
 ```{r}
-get_dat_z_score_bb <- function(obv, mean_num, std_dev_numb, round=FALSE){
-  z_score = (obv - mean_num)/std_dev_numb
+get_dat_z_score_bb <- function(obv, mean_num, std_dev_num, round=FALSE){
+  z_score = (obv - mean_num)/std_dev_num
   
   if (round == TRUE) {
-    rounded_z_score <- round(z_score, digits = 2)
+    rounded_z_score <- round(z_score, digits = 1)
     return(rounded_z_score)
   }
   
@@ -48,45 +43,10 @@ calc_func <- function(num, prime_num){
 
 print(calc_func(32, 11))
 
-print(round(calc_func(32, 11), digits = 3))
+print(round(calc_func(32, 11), digits = 2))
 ```
-```{r}
-help("^")
-```
+
 7)  Write a function (using r code and the structure demonstrated in class) that will create the first10 squares of positive odd integers.  That is your function will give you the following output.   1, 9, 25, 49, ..., 361 when you input values 1 to 10.
-```{r}
-first_10_squares_odd <- function(min_value, max_value){
-  c <- vector()
-  for (variable in min_value:max_value) {
-    if ((variable %% 2) != 0) {
-      squared_value <- variable^2
-      print(squared_value)
-      c <- append(c, squared_value)
-    }
-  }
-  return(c)
-}
-
-new_v <- first_10_squares_odd(1, 10)
-print(new_v)
-```
-```{r}
-library(schoolmath)
-
-first_10_squares_check <- function(min_value, max_value){
-  c <- c()
-  for (variable in min_value:max_value) {
-    if (is.odd(variable)) {
-      squared_value <- variable^2
-      c <- append(c, squared_value)
-    }
-  }
-  return(c)
-}
-```
-```{r}
-print(first_10_squares_check(1, 10))
-```
 ```{r}
 first_10_sqr_nxt <- function(min_value, max_value){
   values <- min_value:max_value
@@ -97,7 +57,4 @@ first_10_sqr_nxt <- function(min_value, max_value){
 
 first_10_sqr_nxt(1, 10)
 ```
-
-
-
 
