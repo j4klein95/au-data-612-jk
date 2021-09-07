@@ -57,6 +57,40 @@ first_10_sqr_nxt <- function(min_value, max_value){
   return(new_value_vector)
 }
 
-first_10_sqr_nxt(1, 10)
+first_10_sqr_nxt(1, 20)
+```
+```{r}
+help("length")
+```
+
+```{r}
+first_10_sqr_retry <- function(min_v, max_v){
+  counter_value <- min_v
+  square_value_vector <- c()
+  while (length(square_value_vector) < max_v) {
+    if (counter_value %% 2 != 0) {
+      square_value_vector <- append(square_value_vector, counter_value)
+      counter_value <- counter_value + 1
+    } else {
+      counter_value <- counter_value + 1
+    }
+  }
+  return(square_value_vector^2)
+}
+```
+
+```{r}
+v <- first_10_sqr_retry(1, 10)
+
+print(v)
+```
+```{r}
+first_10_sqr_2ndRetry <- function(min_v, max_v){
+  odd_int_vector <- seq(min_v, by = 2, len = max_v)
+  odd_int_vector <- odd_int_vector^2
+  return(odd_int_vector)
+}
+
+print(first_10_sqr_2ndRetry(1, 10))
 ```
 
