@@ -1,0 +1,67 @@
+---
+title: "Week2 - Classwork"
+author: "Jared 'Jay' Klein"
+date: "9/13/2021"
+output: word_document
+---
+
+```{r}
+library(tidyverse)
+mtcars
+```
+1  How many rows and columns does the data frame mtcars have ?
+```{r}
+nrow(mtcars)
+ncol(mtcars)
+```
+#2  Name three variables of the mtcars data frame that are quantitative (double)
+```{r}
+str(mtcars)
+```
+mpg, disp, hp
+
+#3  In one or two sentences describe the variable qsec.
+```{r}
+help(mtcars)
+typeof(mtcars$qsec)
+```
+QSEC is the 1/4 mile time of the car, it is a quantitative variable with the data type of double.  
+
+#4  Create a histogram for the variable wt of the mtcars data frame using the ggplot/tidyverse method.
+```{r}
+ggplot(data = mtcars) +
+  geom_histogram(mapping = aes(x=wt), bins = 10)
+```
+
+#5  Create a scatter plot for the variables wt and mpg of the mtcars data frame using the ggplot/tidyverse method;  let x = wt and let y = mpg
+```{r}
+scatter_1 <- ggplot(data=mtcars) +
+  geom_point(mapping = aes(x = wt, y=mpg))
+
+scatter_1
+```
+#6  Use and show R code to change the data points in the scatter plot of # 5 to a color of purple.
+```{r}
+ggplot(data=mtcars) +
+  geom_point(mapping = aes(x = wt, y=mpg), color = "purple")
+```
+#7  For this problem use the data frame  mpg.  Create side by side boxplots for the variable displ with respect to the levels of the variable manufacturer.
+```{r}
+mpg
+help(mpg)
+```
+
+
+```{r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x=displ, y=manufacturer)) 
+```
+# 8  For this problem use the data frame  mpg.  Use R code to create a facet plot that shows boxplots  for displ over the character variable manufacture
+```{r}
+ggplot(data = mpg)  +
+  geom_boxplot(mapping=aes(y=displ)) +
+  facet_wrap(~manufacturer)
+```
+# 9  In three or four sentences explain which representation ( #7 or #8) you prefer and why.
+
+I prefer the plot in #7. The reason being is the cleaner presentation of the box plots and how comparable the different box plots are to other manufacturers. It is easier to identify quartile ranges, median, means and other summary statistics. 

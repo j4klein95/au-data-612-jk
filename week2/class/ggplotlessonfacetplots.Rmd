@@ -1,0 +1,207 @@
+```{r}
+install.packages("plotly")
+```
+
+```{r }
+#Chapter 2 Data Visualization ggplot practice (Tidyverse coding)
+library(tidyverse)
+library(plotly)
+mpg
+View(mpg)
+?mpg
+```
+```{r}
+#Lets create a boxplot
+c <- ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(y=cty))
+
+d <- ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(y=cty)) +
+  coord_flip()
+
+plotly::ggplotly(d)
+plotly::ggplotly(c)
+```
+
+#Creating side by side boxplots (Show boxplots for highway mileage with respect to levels of a
+# character variable)
+```{r}
+box1 <- ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x=drv, y=hwy)) 
+
+# Lets create histogram
+hist1 <- ggplot(data = mpg) +
+  geom_histogram(mapping = aes(x=cty))  #Tidyverse method
+
+hist_mpt_city_1 <- hist(mpg$cty)  #base R method
+
+plotly::ggplotly(box1)
+plotly::ggplotly(hist1)
+```
+
+# Lets create stem and leaf plot
+```{r}
+stem(mpg$cty)  # base R method
+
+```
+
+
+```{r}
+#bar graph
+bar1 <- ggplot(data=mpg) +
+  geom_bar(mapping = aes(drv))
+
+
+# Lets create a scatter plot
+plot(mpg$cty ~ mpg$hwy)   # base R method
+
+scatter1 <- ggplot(data=mpg) +
+  geom_point(mapping = aes(x = cty, y=hwy))   #Tidyverse method
+
+plotly::ggplotly(bar1)
+plotly::ggplotly(scatter1)
+```
+
+
+```{r}
+#scatter plot  (change the color of the data points)
+all_red <- ggplot(data=mpg) +
+  geom_point(mapping = aes(x = cty, y=hwy), color = "red")
+
+plotly::ggplotly(all_red)
+
+#scatter plot  (reflects patterns for different levels of a categorical variable)
+multi_col <- ggplot(data=mpg) +
+  geom_point(mapping = aes(x = cty, y=hwy, color = trans))
+
+plotly::ggplotly(multi_col)
+
+```
+
+
+
+
+```{r}
+#scatter plot (adding a title and axis labels to the graph)
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy)) +
+ xlab("city") +
+ ylab("highway") +
+ ggtitle("milespergallon")
+
+plotly::ggplotly()
+#scatter plot (adding a regression line to your plot)
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy)) +
+  xlab("city") +
+  ylab("highway") + 
+  ggtitle("milespergallon") +
+  geom_smooth(method=lm, mapping=aes(x=cty,y=hwy)) +
+  stat_smooth(mapping = aes(x=cty,y=hwy))
+plotly::ggplotly()
+
+```
+
+
+
+
+#scatter plot (Adding a line that follows the general path of the 
+#scatter plot)
+```{r}
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = cty, y=hwy)) +
+  geom_smooth(mapping = aes(x = cty, y=hwy))
+```
+```{r}
+#scatter plot (Producing smooth lines for a specified categorical
+#variable)
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y=hwy)) +
+  geom_smooth(mapping = aes(x = displ, y=hwy, color = drv))
+
+library(ggplot2)
+mpg
+```
+```{r}
+#example1 (Plotting over different levels for one categorical variable)
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +
+  facet_wrap(~drv) 
+
+plotly::ggplotly()
+```
+```{r}
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +
+  geom_smooth(method=lm,se= FALSE) +
+  facet_wrap(~drv) 
+```
+```{r}
+#example2 (Plotting over different levels for one categorical variable, also showing regression lines)
+
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +
+  geom_smooth(method=lm,se=FALSE) +
+  facet_grid(cyl~drv)
+```
+```{r}
+#example4  (Two ways for creating a histogram)
+#method 1
+ggplot(data = mpg) +
+  geom_histogram(mapping= aes(x=hwy, binwidth = 2))
+```
+```{r}
+#method 2
+ggplot(data=mpg, mapping = aes(x=hwy)) +
+  geom_histogram(binwidth = 2)  
+```
+```{r}
+#example5 (Facet plotting for histograms over different levels of one
+#categorical variable)
+ggplot(data = mpg) +
+  geom_histogram(mapping= aes(x=hwy)) +
+  facet_wrap(~drv)
+```
+```{r}
+#example6 (Facet plotting for boxplots over different levels of one
+#categorical variable)
+ggplot(data = mpg)  +
+  geom_boxplot(mapping=aes(y=cty), fill="blue") +
+  facet_wrap(~drv)
+
+```
+
+```{r}
+#example7 (Facet plotting for boxplots over different levels of two
+#categorical variables)
+
+ggplot(data = mpg)  +  
+  geom_boxplot(mapping=aes(y=cty)) +
+  facet_grid(cyl~drv)
+```
+
+```{r}
+#example 8  (changing the number of rows and columns of a facet plot)
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +
+  facet_wrap(~class) 
+```
+
+```{r}
+# Change to 2 rows
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +              
+  facet_wrap(~class, nrow = 2) 
+```
+
+```{r}
+# Change to 2 columns
+ggplot(data=mpg, mapping=(aes(x=cty,y=hwy))) +
+  geom_point() +
+  facet_wrap(~class , ncol = 2) 
+```
+```{r}
+
+q()
+y
+```
