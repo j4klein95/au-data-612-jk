@@ -3,26 +3,28 @@ title: "Homework 1"
 author: "Jared 'Jay' Klein and Olivia Triska"
 date: "9/15/2021"
 output: word_document
+always_allow_html: true
 ---
 
 ```{r}
+#Below line for installing plotly. Used for interactive graphs to solve ?'s. 
 #install.packages("plotly")
 
 library(ggplot2)
 library(tidyverse)
-library(plotly)
 ```
 
 1)Explore the Midwest dataframe
 
 ```{r}
-midwest
+head(midwest)
+?midwest
 ```
   a)How many rows, columns, and variables are in the Midwest data frame
 ```{r}
 nrow(midwest)
 ncol(midwest)
-glimpse(midwest)
+dim(midwest)
 ```
   There are 437 rows, 28 columns, and 28 features of the dataset with 3 variable types (integer, double, character)
   
@@ -32,25 +34,19 @@ library(dplyr)
 midwest %>% select(where(is.character)) %>%
   glimpse()
 ```
-    The above are three categorical variables
+    
+  The above are three categorical variables *(county, state, category)
     
   c) Give a description for the variable per college
-```{r}
-help("midwest")
-```
-  Percent college educated in county/pid within the midwestern united states. It is read into R memory as a double data type. It is also a quantitative variable.
+  
+  The variable percollege is quantitative and pertains to the percent of the sampled population that is    has completed a college education. Percollege is kept as a double by R in memory. 
   
 2) Write R code to produce a histogram for the variable poptotal
 ```{r}
-hist(midwest$poptotal)
-```
-
-```{r}
 ggplot(data = midwest) +
-  geom_histogram(mapping = aes(x=poptotal), bins = 30)
-
-plotly::ggplotly()
+  geom_histogram(mapping = aes(x=poptotal))
 ```
+
 3) Write r code to produce a boxplot for the variable area, and then use your box plot to find Q1, Q2, and Q3
 ```{r}
 ggplot(data = midwest) +
@@ -59,13 +55,16 @@ ggplot(data = midwest) +
 plotly::ggplotly()
 ```
 
+Q1 -> about .02 maybe .025
+Q3 -> about .04 maybe less
+Median/Q2 -> .03 just about
+**Note: I found these without using the "summary()" method since the instructions
+wanted me to find these values using the plot. 
 
 4) Write r code to produce side by side boxplots for the quantitative variable area with respect to the categorical variable state.
 ```{r}
 ggplot(data = midwest) +
   geom_boxplot(mapping = aes(x=area, y=state))
-
-plotly::ggplotly()
 ```
 
 
@@ -73,17 +72,14 @@ plotly::ggplotly()
 ```{r}
 ggplot(data = midwest) +
   geom_point(mapping = aes(x = popdensity, y=popwhite))
-
-plotly::ggplotly()
 ```
 
 
 6) Write r code that will produce smooth lines plots and scatter plots on the same axis system for popwhite and popdensity with respect to the categorical variable state.
 ```{r}
 ggplot(data = midwest) +
-  geom_point(mapping = aes(x=popdensity, y=popwhite)) +
-  geom_smooth(mapping = aes(x=popdensity, y=popwhite)) +
-  facet_wrap(~state)
+  geom_point(mapping = aes(x=popdensity, y=popwhite, color=state)) +
+  geom_smooth(mapping = aes(x=popdensity, y=popwhite, color=state))
 ```
 
 
@@ -94,12 +90,13 @@ ggplot(data = midwest) +
   d) Add the following title to your graph; White vs Density Scatter Plot
 ```{r}
 ggplot(data = midwest) +
-  geom_point(mapping = aes(x=popdensity, y=popwhite), color="purple") +
+  geom_point(mapping = aes(x=popdensity, y=popwhite, color=state), 
+             color="purple") +
   geom_smooth(mapping = aes(x=popdensity, y=popwhite), method = lm) +
+  stat_smooth(mapping = aes(x=popdensity, y=popwhite, color=state)) +
   xlab("Population Density") +
   ylab("White Population") +
-  ggtitle("White vs. Density Scatter Plot") + 
-  facet_wrap(~state)
+  ggtitle("White vs. Density Scatter Plot")
 ```
   
   
@@ -109,7 +106,6 @@ ggplot(data=mpg) +
   geom_point(mapping = aes(x=displ, y=hwy, color=drv)) +
   geom_smooth(mapping=aes(x=displ,y=hwy)) +
   stat_smooth(mapping = aes(x=displ,y=hwy, color=drv))
-plotly::ggplotly()
 ```
 #9   Write R code that will produce the following facet plot using the midwest data frame
 ```{r}
@@ -122,7 +118,6 @@ ggplot(data=midwest) +
 ggplot(data=mpg) +
   geom_histogram(mapping = aes(x=cty), fill = "green") +
   facet_grid(drv ~ cyl)
-  
 ```
 
   
