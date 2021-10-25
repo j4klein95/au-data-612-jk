@@ -1,0 +1,85 @@
+---
+title: "classwork5"
+author: "Jared 'Jay' Klein"
+date: "10/11/2021"
+output: word_document
+---
+
+# 1) Use the command dim(midwest) to determine how many rows and columns the data table midwest has.
+```{r}
+library(tidyverse)
+
+dim(midwest)
+midwest
+```
+
+There are 437 rows and 28 Columns
+
+
+# 2) Use and show R code to determine if the data table midwest is a tibble.
+```{r}
+is_tibble(midwest)
+```
+
+# 3) Use and show R code to convert midwest to a data frame if it is a tibble. (If it is not a tibble, skip this problem)
+```{r}
+as.data.frame(midwest)
+```
+
+4)  Use and show R code that will extract (subset) the content of the variable area from the # midwest data table using two methods.
+
+```{r}
+midwest[["area"]]
+```
+
+```{r}
+midwest$area
+```
+
+
+5)  Now use and show R code that will extract the variable area by using piping and using a # dplyr command.
+
+```{r}
+midwest%>%
+  select(area)
+```
+
+How does the output of problem 4 differ from the output of problem 5?
+  Dplyr looks to be converting the midwest dataframe from a dataframe object to
+  a tibble object instead.
+  
+6)  Use and show R code that will extract (subset) the content of the variable that has the 5th # position in the data table.
+
+```{r}
+midwest[[5]]
+```
+
+
+7)  Create a tibble that has three columns.  Column A has the letter b for each entry, column B has# 10 entries that are consecutive multiples of 3. ( 3, 6, 9...), and the last column , column C # consists of the natural log of each value in column B. Show and use R code that will produce the tibble below.
+
+```{r}
+tibble(
+  A = "b",
+  B = 1:10 *3, 
+  C = log(B)
+)
+```
+
+
+8)  Assign your tibble from problem 7 to a variable and create a scatter plot for variables B and C.# let B be the explanatory variable and let C be the response variable.
+
+```{r}
+custom_df <- tibble(
+  A = "b",
+  B = 1:10 *3, 
+  C = log(B)
+)
+
+ggplot(data = custom_df) +
+  geom_point(mapping = aes(x = B, y = C ))
+```
+
+
+
+
+

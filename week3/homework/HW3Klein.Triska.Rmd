@@ -1,0 +1,74 @@
+---
+title: "HW3Klein.Triska"
+author: "Olivia Triska"
+date: "9/26/2021"
+output: word_document
+---
+
+```{r}
+library(reshape2)
+library(ggplot2)
+?tips
+```
+
+```{r}
+#1
+?tips
+
+```
+
+Size refers to the size of the party that was providing the tip. For example, if the size of the party was 3 then waiter was serving 3 people at a table.
+
+```{r}
+#2
+ggplot(data = tips) +
+  geom_bar(mapping = aes(x=size, fill=size, color=size), fill="red") + 
+  labs(x="size",
+       y="count",
+       color="Legend",
+       title="Bargraph showing counts for tip size")
+```
+
+
+```{r}
+#3
+ggplot(data = tips) +
+geom_bar(mapping = aes(x="", y=size, fill=day), position="stack", stat="identity", width = .5)
+```
+
+
+```{r}
+#4
+ggplot(tips, aes(x="", y=size, fill=day)) +
+geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme_void()
+```
+
+
+```{r}
+#5
+ggplot(data = tips) +
+geom_point(mapping = aes(x=total_bill, y=tip/total_bill))
+```
+
+
+```{r}
+#6
+ggplot(data = tips) +
+geom_point(mapping = aes(x=total_bill, y=tip/total_bill))+
+  facet_wrap(~day, nrow=2)
+```
+
+The most extreme outlier appears to be on Sunday 
+where the total bill is < 10 but the tip percentage of the total bill is > .6. 
+
+```{r}
+#7
+ggplot(data = tips) +
+  geom_point(mapping = aes(x=total_bill, y=tip/total_bill))+
+  facet_wrap(time~size, nrow=2)
+```
+
+For a party of size 2 at dinner time appears to be the most populated plot in 
+the facet scatter plot.

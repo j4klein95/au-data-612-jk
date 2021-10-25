@@ -1,0 +1,42 @@
+---
+title: "cw7-data612"
+author: "Jared 'Jay' Klein"
+date: "10/25/2021"
+output: word_document
+---
+
+```{r}
+setwd("/Users/jay-macbook/au-datasci/au-data-612-jk/week7/classwork/")
+
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+```
+
+1)  Show and use R code to import the Billboard excel file posted on blackboard.  Remember to assign the imported file to a variable.
+
+```{r}
+billabing_billabong <- read_csv("Copyofbillboard.csv")
+```
+
+2)  The Billboard data table is to wide. There are 76 weeks shown in the data table 
+horizontally.  Show and use R code to make the table longer. Print the first 10 rows.  A partial table is shown below:
+
+```{r}
+head(billabing_billabong)
+```
+
+```{r}
+longer_billabing <- pivot_longer(billabing_billabong, cols = starts_with("wk"), names_to = "weeks")
+
+head(longer_billabing, 10)
+```
+
+3)  Use R code, specifically a dplyr function and a parsing function to remove the wk from each 
+entry of the weeks’ column.  Print the first 25 rows.  A partial table is shown below:
+
+```{r}
+longer_billabing%>%
+  mutate(weeks = parse_number(weeks))
+```
+

@@ -1,0 +1,55 @@
+---
+title: "classwork4"
+author: "Jared 'Jay' Klein"
+date: "9/27/2021"
+output: word_document
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+mpg
+?mpg
+```
+
+1) From the mpg data frame, use and show R code to produce a new data table that shows data for the three variables manufacturer, model, and drv.
+```{r}
+df_1 <- select(mpg, manufacturer, model, drv)
+head(df_1)
+```
+
+2) From the mpg data frame, use and show R code to produce a new data table that shows data for all vehicles whose city mileage cty is less than 17. Print the first 20 rows.
+
+```{r}
+df_2 <- filter(mpg, cty<17)
+
+head(df_2, 20)
+```
+3) From the mpg data frame, use and show R code to produce a new data table that only shows data for the manufacturer ford , class of suv vehicles in the year 2008)  (You should only see 3 vehicles)
+
+```{r}
+df_3 <- filter(mpg, manufacturer=="ford", class=="suv", year=="2008")
+df_3
+```
+
+4)  From the mpg data frame, use and show R code to produce a new data table that shows highway mileage hwy only for dodge vehicles in descending order.  Print the first 15 rows.
+
+```{r}
+df_4 <- mpg%>%
+  filter(manufacturer=="dodge")%>%
+  select(hwy)%>%
+  arrange(desc(hwy))
+
+head(df_4, 15)
+```
+5) Use the piping process and dplyr commands to produce the data table below. Five of the first 20 rows are given below. Code so that you generate 20 rows exactly. (Hint: all prices are greater than 18500.)
+
+```{r}
+df_5 <- diamonds%>%
+  select(price, carat, cut)%>%
+  arrange(desc(price))%>%
+  mutate(pricepercarat=(ceiling(price/carat)))%>%
+  filter(cut=="Premium")
+
+head(df_5, 20)
+```

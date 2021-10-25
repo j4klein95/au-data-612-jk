@@ -1,0 +1,59 @@
+---
+title: "cw6-data612"
+author: "Jared 'Jay' Klein"
+date: "10/19/2021"
+output: word_document
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+
+1)
+```{r}
+setwd("/Users/jay-macbook/au-datasci/au-data-612-jk/week6/classwork/")
+student_data <- read_csv("StudentData.csv")
+```
+```{r}
+head(student_data)
+```
+
+2)
+```{r}
+student_data%>%
+  group_by(FavoriteColor)%>%
+  tally(name="ColorCount")
+  
+```
+
+
+3)
+```{r}
+ggplot(data = student_data) +
+  geom_bar(mapping = aes(x = FavoriteColor, fill= FavoriteColor)) +
+  scale_fill_manual("legend", values = c("red" = "red", "green" = "green", "blue" = "blue", "brown" = "brown"))
+```
+
+4)
+```{r}
+student_data%>%
+  group_by(FavoriteColor)%>%
+  summarize(medianGPA = median(GPA))
+```
+
+5)
+```{r}
+years_fixed <- parse_number(student_data$YearsofMatriculation)
+
+student_data$YearsofMatriculation <- years_fixed
+
+head(student_data)
+```
+
+```{r}
+summary(student_data$YearsofMatriculation)
+```
+
+

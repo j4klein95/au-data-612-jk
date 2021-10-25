@@ -1,0 +1,50 @@
+---
+title: "Classwork 3"
+author: "Jared 'Jay' Klein "
+date: "9/20/2021"
+output: word_document
+always_allow_html: true
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+
+```{r}
+us_cities <- tribble(
+  ~City, ~County, ~State, ~Population,
+  "Baltimore", "Baltimore", "Maryland", 619493,
+  "Houston", "Harris", "Texas", 2320268,
+  "Chicago", "Cook", "Illinois", 2693976,
+  "Albany", "Albany", "New York", 96460,
+  "Anaheim", "Orange", "California", 350365,
+  "Phoenix", "Maricopa", "Arizona", 1680992
+)
+```
+
+2) Using R code demonstrated in class, create a color featured bar graph showing the population of each city.
+```{r}
+ggplot(data = us_cities) +
+  geom_bar(mapping = aes(x = City, y = Population, fill=City), stat="identity") +
+  ggtitle("Population of Each City")
+```
+3)  Using the R code demonstrated in class, create a stacked bar graph and a pie chart for the population for each city.  Give your pie chart the title.
+
+```{r}
+ggplot(data = us_cities) +
+  geom_bar(mapping = aes(x="", y=Population, fill=City), position="stack", stat="identity", width = .5) +
+  xlab("City") +
+  ggtitle("City Population Stacked Bar Chart")
+```
+
+```{r}
+ggplot(us_cities, aes(x="", y=Population, fill=City)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0)+
+  theme_void() +
+  ggtitle("City Population Pie Chart") +
+  geom_text(aes(label=City), position = position_stack(vjust = 0.5))
+```
+

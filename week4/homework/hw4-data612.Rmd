@@ -1,0 +1,125 @@
+---
+title: "hw4-data612"
+author: "Jared 'Jay' Klein and Olivia Triska"
+date: "9/27/2021"
+output: word_document
+---
+
+1. Load and view the msleep data frame into R. 
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(glue)
+
+msleep
+#view(msleep)
+?msleep
+```
+
+2. How many mammals are in the msleep data frame? How many variables? Use two R functions to get this information. 
+
+```{r}
+nrow(msleep)
+ncol(msleep)
+
+glue("There are {nrow(msleep)} mammals in the dataset with {ncol(msleep)} variables.")
+# You can also use length(), length() with unique()
+```
+
+3. Plot body weight against the total amount of sleep. Hint: think of the appropriate plot to explore their association; remember these are two continuous variables.  What is the response variable and what is the explanatory variable
+
+```{r}
+ggplot(data=msleep) +
+  geom_point(mapping =  aes(bodywt, sleep_total)) +
+  geom_smooth(mapping = aes(bodywt, sleep_total), method = "lm", se=FALSE)
+```
+
+The appropriate plot to utilize for continuous variables is the scatter plot simply because that is what it is designed for. Scatter plots exist to show the relationship between a dependent and independent variable. The response variable is sleep total as that is what is changing as explained by the explanatory variable which is bodywt. It is suggesting that as body weight changes, it impacts the total time slept. 
+
+
+4. When you see a curved relationship in a plot, you can often get rid of these curves by taking a log transformation of either the explanatory or the response variable (or a log transformation of both). Do this for your problem results until you get an appropriately linear relationship and plot the results. Use and show R code to produce the scatter plot. 
+
+
+```{r}
+ggplot(data=msleep) +
+  geom_point(mapping = aes(log(bodywt), sleep_total)) +
+  geom_smooth(mapping = aes(log(bodywt), sleep_total), method = "lm", se=FALSE)
+```
+5. Color code the scatter plot in problem 4 by the diet of the animals vore and add a title to your scatterplot.  Use and show R code to produce the scatter plot. 
+
+```{r}
+ggplot(data=msleep) +
+  geom_point(mapping =  aes(log(bodywt), sleep_total, color=vore)) +
+  geom_smooth(mapping = aes(log(bodywt), sleep_total), method = "lm", se=FALSE) +
+  ggtitle("Sleep Total vs Body Weight sorted by Vore")
+```
+
+6. In the plot from problem 5, add a regression line without standard errors to each vore category.   Does the effect of body weight on sleep total appear larger for some diets?   
+
+```{r}
+ggplot(data=msleep) +
+  geom_point(mapping =  aes(log(bodywt), sleep_total, color=vore)) +
+  geom_smooth(mapping = aes(log(bodywt), sleep_total, color=vore), method = "lm", se=FALSE) +
+  ggtitle("Sleep Total vs Body Weight sorted by Vore")
+
+```
+
+
+Based only on the the graphic plot and the regression lines, it appears that there are certain "vore" diets that impact body weight to total sleep more heavily than other diets. Specifically, the carnivore and herbivore
+
+
+7. Now use R code to change the appearance of the regression line.  The regression line should be dashed and black.  (Hint: use the command  ?linetype to explore the usage of the function linetype) 
+
+```{r}
+ggplot(data=msleep) +
+  geom_point(mapping =  aes(log(bodywt), sleep_total, color=vore)) +
+  geom_smooth(mapping = aes(log(bodywt), sleep_total, linetype=vore), 
+              color="black", method = "lm", se=FALSE)
+  ggtitle("Sleep Total vs Body Weight sorted by Vore")
+```
+
+8. Use a dplyr function to modify the msleep data table so that it only shows the vore types that are carinvores (carni).
+
+
+```{r}
+df_carni <- filter(msleep, vore=="carni")
+head(df_carni)
+```
+
+9. Use a dplyr functions to modify the msleep data table so that it only shows the variables names, name, vore ,bodywt and conservation, also your data table only shows domesticated animals that have a bodyweight that is greater than 50 kilograms.
+
+
+```{r}
+df_num9 <- msleep%>%
+  select(name, vore, bodywt, conservation)%>%
+  filter(conservation=="domesticated", bodywt>50)
+
+head(df_num9)
+```
+
+10. Use the group_by and summerize commands to find the mean sleep_total value for each level of the variable vore.
+
+
+```{r}
+msleep%>%
+  select(sleep_total, vore)%>%
+  group_by(vore)%>%
+  summarise(mean_sleep_total = mean(sleep_total, na = TRUE))
+
+```
+
+
+11. Use  dplyr functions to modify the msleep data table so that it only shows the variables names, name, vore, bodywt and sleep_total, also create a new variable in your data table that gives a ratio of sleep totals to body weight. 
+A partial representation of the table is given below.  Note that the values for the new variable ratio is listed in descending order. Use dplyr coding to produce the first 15 rows of the data table
+
+
+```{r}
+df_num11 <- msleep%>%
+  select(name, vore, bodywt, sleep_total)%>%
+  mutate(ratio=(round(bodywt/sleep_total, digits=0)))%>%
+  arrange(desc(ratio))%>%
+  print(n=15)
+```
+
+

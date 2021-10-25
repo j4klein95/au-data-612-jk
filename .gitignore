@@ -1,3 +1,5 @@
 .DS_Store
 *.docx
 .ipynb_checkpoints
+*.csv
+exams/

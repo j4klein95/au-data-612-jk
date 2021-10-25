@@ -1,0 +1,84 @@
+---
+title: "Hw3"
+author: "Jared 'Jay' Klein and Olivia Traska"
+date: "9/25/2021"
+output: word_document
+---
+
+```{r}
+install.packages("reshape2")
+library(reshape2)
+library(ggplot2)
+View(tips)
+?tips
+```
+
+1.One of the variables of the tips data frame is size.  Using the command   ?tips,provide a definition for size
+  Size refers to the size of the party that was providing the tip. For example, if the size of the party was 3 then waiter was serving 3 people at a table.  
+  
+  
+2) Reproduce the bar graph
+```{r}
+ggplot(data = tips) +
+  geom_bar(mapping = aes(x=size, fill=size, color=size), fill="red") + 
+  labs(x="size",
+       y="count",
+       color="Legend",
+       title="Bargraph showing counts for tip size")
+```
+
+3) Use and show R code to produce a stacked bar graph that shows regions for the variable size with respect to the categorical variable day.  An image of the stacked bar graph is provided below
+```{r}
+ggplot(data = tips) +
+  geom_bar(mapping = aes(x="", y=size, fill=day), position="stack", stat="identity", width = .5) 
+```
+
+4.Now use and show R code to create a pie chart using the same variables in problem 3
+```{r}
+ggplot(tips, aes(x="", y=size, fill=day)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme_void()
+  
+  
+  #geom_bar(stat="identity", width=1, color="white") +
+  #coord_polar("y", start=0)
+```
+
+
+5.Using the variables of the data frame, create a scatter plot showing a relationship between the total bill and the tip percentage of the total bill.x = the total bill,  y =  tip/total bill  (tip divided by total bill)Use your scatter plot from problem 5 to produce the following plots for 6 ,7, and 8.
+```{r}
+ggplot(data = tips) +
+  geom_point(mapping = aes(x=total_bill, y=tip/total_bill)) 
+```
+
+
+
+6.Facetthe scatter plot over the variable day using two rows.  On what day do you have the most extreme outlier?
+```{r}
+ggplot(data = tips) +
+  geom_point(mapping = aes(x=total_bill, y=tip/total_bill))+
+  facet_wrap(~day, nrow=2)
+```
+  The most extreme outlier appears to be on Sunday where the total bill is < 10 but the tip percentage of the total bill is > .6. 
+
+7.Facet the scatter plot over the two variables time and size using two rows.   For what size and at what time is the scatter plot most populated?
+```{r}
+ggplot(data = tips) +
+  geom_point(mapping = aes(x=total_bill, y=tip/total_bill))+
+  facet_wrap(time~size, nrow=2)
+```
+For a party of size 2 at dinner time appears to be the most populated plot in the facet scatter plot.
+
+
+8.Now, go back to problem 7,  provide code that will change the day abbreviations in your facet output . i. e.  Fri -> Friday,  Sat -> Saturday ...
+```{r}
+new_day_names <- as_labeller(
+  c("Fri"="Friday", "Sat"="Saturday", "Sun"="Sunday", "Thur"="Thursday")
+)
+
+ggplot(data = tips) +
+  geom_point(mapping = aes(x=total_bill, y=tip/total_bill))+
+  facet_wrap(~day, labeller=new_day_names)
+```
+

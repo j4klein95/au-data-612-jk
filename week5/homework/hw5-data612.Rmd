@@ -1,0 +1,120 @@
+---
+title: "hw5-DATA-612"
+author: "Jared 'Jay' Klein"
+date: "10/12/2021"
+output: word_document
+---
+
+```{r}
+install.packages("Lahman")
+library(Lahman)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+1) Use r coding to show that the Batting data from the Lahman package  is not a tibble
+
+```{r}
+is_tibble(Batting)
+```
+
+
+2) Batting is a very large data frame. Use r code to determine how many rows and columns  the Batting data frame has.
+
+```{r}
+dim(Batting)
+```
+
+22 columns with 108789 rows. 
+
+3) Now use r coding to convert the Batting data frame to a tibble
+
+```{r}
+batting_tib <- as_tibble(Batting)
+is_tibble(batting_tib)
+```
+
+4)  Use dplyr coding to determine how many and which players hit more than 30 home runs in 1991. (Select playerID , teamID, yearID, and HR)
+
+```{r}
+batting_tib%>%
+  select(playerID, teamID, yearID, HR)%>%
+  filter(yearID == "1991", HR > 30)
+  
+```
+
+
+ 5) Use any subsetting r code to determine the mean for Home Runs in 1991
+ 
+```{r}
+temp_tib <- batting_tib%>%
+  select(playerID, teamID, yearID, HR)%>%
+  filter(yearID == "1991")
+
+mean(temp_tib[["HR"]])
+
+```
+ 
+
+6)  Use dplyr coding to determine how many and which players hit more than 30 home runs in 1990.  (Be sure to select player ID , yearID, and  HR)
+
+```{r}
+batting_tib%>%
+  select(playerID, teamID, yearID, HR)%>%
+  filter(yearID == "1990", HR > 30)
+```
+ 
+7)  Use any subsetting r code to determine the mean for Home Runs in 1990
+
+```{r}
+temp_tib_1990 <- batting_tib%>%
+  select(playerID, teamID, yearID, HR)%>%
+  filter(yearID == "1990")
+
+mean(temp_tib_1990[["HR"]])
+```
+
+
+8) Use r code to create side by side boxplots showing greater than 30 home run    counts for players in 1990 and 1991.
+
+```{r}
+boxplot_tibble <- Batting%>%
+  select(yearID, HR)%>%
+  filter(yearID %in% c("1990", "1991"), HR > 30)
+
+ggplot(data = boxplot_tibble) +
+  geom_boxplot(mapping = aes(y = HR)) +
+  facet_wrap(~yearID)
+```
+
+
+9) Recreate box plot
+
+```{r}
+Batting%>%
+  select(yearID, teamID, HR)%>%
+  filter(yearID %in% c("1990", "1991"), HR > 30)%>%
+  ggplot(aes(x = teamID, y = HR)) +
+  geom_boxplot()
+  
+```
+
+10) Create a tribble DF
+
+```{r}
+tribble (~Name,  ~Age, ~Department, ~YrsofSrvce, ~EduLevel, ~Salary,                   "Carlos", 30,  "Personnel",               4,          "MS",       71500,                   "Jacob",  26,  "Accounting",            6,            "BS",       70000,                   "Elaine",  31,    "IT",                           4,            "BS",      75000,                    "Alice",  42,   "Sales",                        5,          "BS",       72000,                     "Juan",   31,    "IT",                           7,          "BS",        68000,                     "Ray",    28,  "Accounting",             5,          "MS",       81000,                     "Kate",   25,   "Sales",                       4,          "BS",        74000,                    "Leon",   30,  "Personnel",               11,          "MS",     78000,                   "Robert", 29,  "Accounting",              8,          "MS",      77500)-> EmployeeData
+
+EmployeeData
+```
+
+
+11) Recreate Graph
+
+```{r}
+ggplot(data = EmployeeData) +
+  geom_bar(mapping = aes(x = Name, y = YrsofSrvce, fill = Name), stat = "identity") +
+  geom_text(aes(x = Name, y = YrsofSrvce, label = YrsofSrvce), vjust = 2) +
+  ggtitle("Years of Service Bar Graph")
+```
+
