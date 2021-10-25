@@ -27,7 +27,7 @@ head(billabing_billabong)
 ```
 
 ```{r}
-longer_billabing <- pivot_longer(billabing_billabong, cols = starts_with("wk"), names_to = "weeks")
+longer_billabing <- pivot_longer(billabing_billabong, cols = starts_with("wk"), names_to = "weeks", values_to = "ratings")
 
 head(longer_billabing, 10)
 ```
@@ -36,7 +36,9 @@ head(longer_billabing, 10)
 entry of the weeks’ column.  Print the first 25 rows.  A partial table is shown below:
 
 ```{r}
-longer_billabing%>%
+baddabing_badda_boom <- longer_billabing%>%
   mutate(weeks = parse_number(weeks))
+
+head(baddabing_badda_boom, 25)
 ```
 
