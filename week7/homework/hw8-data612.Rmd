@@ -1,0 +1,141 @@
+---
+title: "hw8-data612"
+author: "Jared 'Jay' Klein and Olivia Triska"
+date: "10/29/2021"
+output: word_document
+---
+
+```{r}
+ld_data <- untidydata::language_diversity
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+
+2)  The data set is too long (444 rows) and should be wider in order to become 
+more useful and understandable.  Use and show R code to produce a table that is 
+wider data table version of the original data table.
+
+```{r}
+ld_data%>%
+  pivot_wider(names_from = Measurement, values_from = Value)
+```
+
+
+3)  Now use and show R code that will arrange the Continents in alphabetical 
+order.  Print the first 40 rows.  A partial table showing rows 35 – 40 are given 
+below.
+
+```{r}
+ld_data%>%
+  pivot_wider(names_from = Measurement, values_from = Value)%>%
+  arrange(Continent)%>%
+  print(n = 40)
+```
+
+
+4)  Now use and show R code that will only produce Asian countries in the data 
+table.  There are 16 Asian countries
+
+```{r}
+ld_data%>%
+  pivot_wider(names_from = Measurement, values_from = Value)%>%
+  arrange(Continent)%>%
+  filter(Continent == "Asia")
+```
+
+
+5)  Enter the r code untidydata and then select pre_post
+      You should produce the following r data call of   untidydata::pre_post
+      Produce the pre_post table that shows all 16 rows.
+      
+```{r}
+pp_data <- untidydata::pre_post
+pp_data
+```
+
+6)  For the pre_post data table, Use and show R code that will eliminate the 
+under scores for the variable spec. 
+
+```{r}
+pp_data%>%
+  mutate(spec = gsub("_", "", spec)) 
+```
+
+
+7) Use and show R code that imports the excel spread sheet into R.  Assign your imported data 
+the variable covid.
+
+```{r}
+setwd("/Users/jay-macbook/au-datasci/au-data-612-jk/week7/homework")
+covid <- read_csv("Covid19Data.csv")
+```
+
+
+8)  The covid data table is too wide.  Apply and show R tyding code that will 
+create a longer data table and then print 25 rows of the new data table. 
+
+
+```{r}
+pivot_longer(covid, cols = `1/22/2020`:`10/15/2020`, names_to = "date", values_to = "Cases")
+```
+
+
+9)  Now use and show R code that changes your table from number 8 and will produce a table 
+that only shows data for the countries Vietnam, Thailand, and Singapore.  When printed, the 
+first ten rows automatically shows data for Singapore.
+
+
+```{r}
+covid%>%
+  pivot_longer(cols =c( "1/22/2020":"10/15/2020"),  names_to = "date", values_to = "Cases")%>%
+  filter(`Country/Region` == c("Vietnam", "Thailand","Singapore"))%>%
+  print(n=10)
+```
+
+
+10a)
+
+```{r}
+covid%>%
+  pivot_longer(cols = `1/22/2020`:`10/15/2020`, names_to = "date", values_to = "Cases")%>%
+  filter(`Country/Region` == c("Vietnam", "Thailand", "Singapore")) -> se_asia_covid
+```
+
+```{r}
+se_asia_covid%>%
+  filter(Cases == 12693)%>%
+  select(`Country/Region`, date, Cases)
+```
+Singapore had 12,693 cases on 4/25/2020
+
+
+10b)
+
+```{r}
+se_asia_covid%>%
+  filter(`Country/Region` == "Thailand")%>%
+  arrange(desc(Cases))%>%
+  select(`Country/Region`, Cases)
+```
+The maximum number of cases in Thailand was 3652
+
+10c) 
+
+```{r}
+se_asia_covid%>%
+  summarise(Cases = sum(Cases))
+```
+
+
+10d) 
+
+```{r}
+se_asia_covid%>%
+  group_by(`Country/Region`)%>%
+  summarise(Cases = sum(Cases))
+```
+

@@ -1,0 +1,72 @@
+---
+title: "cw8-data612"
+author: "Jared 'Jay' Klein"
+date: "11/1/2021"
+output: word_document
+---
+
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+1)  Use and show R code to show that the variable name is a key for the data table starwars.
+```{r}
+starwars %>% 
+  count(name) %>% 
+  filter(n>1)
+```
+
+
+2)  Use and show R code to show that the collection of variables x, y, and z do not constitute a 
+key for the data table diamonds.   Which designations for x, y, and z has the highest count?
+```{r}
+diamonds %>% 
+  count(x, y, z) %>% 
+  filter(n>1) %>% 
+  arrange(desc(n))
+```
+x = 4.32, y = 4.35, and z = 2.69 have the highest designation count for the dataset. 
+
+3)  Create tribbles for data frames given below; and then, use and show R code that will 
+produce an inner join, a left join, a right join, and a full join  (The tribbles should have only 
+two columns;  CustomerId and Product  or CustomerId and State)
+```{r}
+df1 <- tribble(~CustomerId, ~Product,
+               1, "Oven",
+               2, "Television",
+               3, "Mobile",
+               4, "WashingMachine",
+               5, "Lightnings",
+               6, "Ipad"
+               )
+
+df2 <- tribble(~CustomerId, ~State,
+               2, "California",
+               4, "Newyork",
+               6, "Santiago",
+               7, "Texas",
+               8, "Indiana")
+```
+
+```{r}
+inner_join(df1, df2, "CustomerId")
+```
+```{r}
+left_join(df1, df2, "CustomerId")
+
+```
+```{r}
+right_join(df1, df2, "CustomerId")
+
+```
+
+```{r}
+full_join(df1, df2, "CustomerId")
+```
+
+4) Which of your joins from number 3 show only the observations that tribbles have in 
+common?
+
+The Inner join is the only kind of join that shows observations that each of the tribble tables have in common. 

@@ -1,0 +1,120 @@
+---
+title: "hw8-again-joins-data612"
+author: "Jared 'Jay' Klein"
+date: "11/1/2021"
+output: word_document
+---
+
+```{r}
+library(tidyverse)
+library(nycflights13) 
+library(dplyr)
+?count
+```
+
+1) Examine the data table weather from the nycflights13 package.  Find a 
+key for the weather data table. (Hint: the key is a collection of two 
+variables). Show and use R code to confirm that your selection is a key.
+
+```{r}
+weather <- nycflights13::weather
+weather%>%
+  count(year, month, day, hour, origin, humid)%>%
+  filter(n>1)
+```
+
+
+2)
+policies
+      PolicyNumber EffectiveDate ExpirationDate
+                 1    2012-01-01     2012-12-31
+                 2    2012-01-01     2012-06-30
+                 3    2012-07-01     2012-12-31
+                 4    2012-04-01     2012-12-31
+claims
+      ClaimNumber PolicyNumber ClaimCost
+              123            1       100
+              124            1      2400
+              125            3       350
+              126            4      8000
+2a) Use and show R code to create tribbles for the two tables given above.
+(Hint: put the dates in double quotes)
+
+```{r}
+claims <- tribble(      ~ClaimNumber, ~PolicyNumber, ~ClaimCost,
+              123,            1,       100,
+              124,           1,      2400,
+              125,          3,       350,
+              126,         4,      8000)
+
+policies <- tribble(
+      ~PolicyNumber, ~EffectiveDate, ~ExpirationDate,
+                 1,    "2012-01-01",    "2012-12-31",
+                 2,    "2012-01-01",     "2012-06-30",
+                 3,    "2012-07-01",     "2012-12-31",
+                 4,    "2012-04-01",     "2012-12-31")
+```
+
+2b) Use and show R code to confirm that PolicyNumber is a key for both 
+tables
+```{r}
+claims%>%
+  count(PolicyNumber)%>%
+  filter(n>1)
+
+policies%>%
+  count(PolicyNumber)%>%
+  filter(n>1)
+```
+
+
+2c) Use and show R code to produce a left join for the two tables
+```{r}
+policies%>%
+  left_join(claims, by = "PolicyNumber")
+```
+
+2d) Use and show R code to produce a right join for the two tables
+```{r}
+policies%>%
+  right_join(claims, by = "PolicyNumber")
+```
+
+2e) Use and show R code to produce an inner join for the two tables
+```{r}
+policies%>%
+  inner_join(claims, by = "PolicyNumber")
+```
+
+2f) Use and show R code to produce a full join for the two tables
+```{r}
+policies%>%
+  full_join(claims, by = "PolicyNumber")
+```
+
+2g) What joins show the policy number for which no claim has been filed?
+
+  Left join and full join both show policy number 2 for which no claim number 
+  has been filed.
+  
+3) Study and analyze the variables of the flights data table from the 
+nycflights13 data package.  Create two different tables from the flights 
+data table.  One table (table1a), showing the top 10 destinations and the 
+other table (table1b showing the variables carrier, dest, origin, and 
+air_time.  Use and show R code to join the two tables, resulting in the 
+table shown below.
+
+```{r}
+table1a <- flights%>%
+  count(dest, name = "destValue") %>% 
+  arrange(desc(destValue)) %>% 
+  top_n(n=10)
+
+table1b <- flights %>% 
+  select(carrier, dest, origin, air_time)
+```
+
+```{r}
+full_join(table1a, table1b, by="dest")
+```
+
