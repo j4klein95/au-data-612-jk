@@ -1,0 +1,79 @@
+---
+title: "hw-regex-data612"
+author: "Jared 'Jay' Klein and Olivia Triska"
+date: "11/23/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+library(tidyverse)      library(stringr)
+```{r}
+library(tidyverse)      
+library(stringr)
+```
+
+1) The medical term  pneumonoultramicroscopicsilicovolcanoconiosis is the longest word in 
+the English language.  Using this term,  apply  stringr code that will produce:
+a)   a pattern   volcano  
+```{r}
+long_word <- "pneumonoultramicroscopicsilicovolcanoconiosis"
+str_view(long_word, "volcano")
+```
+
+b)   a pattern  picsilico
+```{r}
+str_view(long_word, "picsilico")
+```
+
+2) Create a general regular expression that will match the pattern abccba for the string_view 
+coding below.  Do not use the specific lettered pattern given.  Use only special characters such
+as parentheses, periods, quotes and backslahes 
+```{r}
+str_view(c("abcabc", "abbabb", "abbbab", "abccba"), "(.)(.)(.).*\\3\\2\\1",match = TRUE)
+```
+
+3) 
+For the vector given below, create a string expression that will 
+match all files that end with .xlsx Use R code that features a stringr 
+function to confirm your answer.
+files = c(
+  "tmp-project.csv", "project.csv", 
+  "project2-csv-specs.csv", "project2.csv2.specs.xlsx", 
+  "project_cars.ods", "project-houses.csv", 
+  "Project_Trees.csv","project-cars.R",
+  "project-houses.r", "project-final.xls", 
+  "Project-final2.xlsx"
+)
+```{r}
+files = c(
+  "tmp-project.csv", "project.csv", 
+  "project2-csv-specs.csv", "project2.csv2.specs.xlsx", 
+  "project_cars.ods", "project-houses.csv", 
+  "Project_Trees.csv","project-cars.R",
+  "project-houses.r", "project-final.xls", 
+  "Project-final2.xlsx"
+)
+
+str_subset(files, ".xlsx$")
+```
+
+
+4) Using the words data set, create a regular expression that will match words that end with 2 
+e’s  ( such as  free or see ).  Use R code that features a stringr function to confirm your 
+answer.
+```{r}
+str_subset(words, "ee$")
+```
+
+5) ) Create a general regular expression that will match words that start and end with the 
+same character. For example:  willow, diamond, or executive. 
+```{r}
+str_subset(words, "^(.).*\\1$")
+```
+
+6) Describe in words what the regular expression will match:    “(.)(.)(.).*\\3\\2\\1
+
+This expression will get the first 3 characters of a word, from there it'll collect the text captured by the 3rd resulting grouping and returning that first. Then the second, then the third. The expression would match something like aaabbbccccccbbbaaa where the 3rd a is group 3.  
+
+

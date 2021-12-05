@@ -1,0 +1,81 @@
+---
+title: "hw-strings-data612"
+author: "Jared 'Jay' Klein and Olivia Triska"
+date: "11/15/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(stringr)
+```
+
+
+**1. Use R code to write the content of the string "Alaska" without the quotes.**
+
+```{r}
+writeLines("Alaska")
+```
+
+
+**2. Use R code to combine the strings "bo" , "nan" , "za".   Separate each string with a backslash**
+
+```{r}
+str_c("bo" , "nan" , "za" , sep = "/")
+```
+
+**3. For the string, "Mississippi" use R code that will extract the third character through the 6th character and all characters in between**
+
+```{r}
+y <- "Mississippi"
+str_sub(y, 3,6)
+```
+
+**4. Use R code to convert the string “california” to CALIFORNIA  (all caps no quotes)**
+
+```{r}
+writeLines(str_to_upper("california"))
+```
+
+**5. Using the common words of stringr :: words,  produce R code that will generate all words that start with a u a v or a q**
+
+```{r}
+str_subset(words, "^[u|v|q]")
+```
+
+
+**6. Using the common words of stringr :: words,  produce R code that will generate seven letter words that end in t**
+
+```{r}
+str_subset(words, "^......t$")
+```
+
+**7. Using the common words of stringr :: words,  produce R code that will generate words that end al or el.**
+
+```{r}
+str_subset(words,  "(al)$") -> x
+str_subset(words,  "(el)$") -> y
+union(x,y) 
+```
+
+**8. Use stringr functions in order to capitalize all entries for the variable trans of the mpg data frame.**
+
+```{r}
+str_to_upper(mpg$trans)
+```
+
+**9.  Use a stringr function(s) to find all words that begin with p and end with t from the stringr:words data bank.  How many of these words are there?**
+
+```{r}
+str_subset(words, "^p") -> z
+str_subset(z, "t$") 
+```
+
+**10.  Use a stringr function to determine how many common words from the stringr::words data bank begin with a v.  Use code,  do not count.**
+```{r}
+length(str_subset(words, "^v"))
+```
+

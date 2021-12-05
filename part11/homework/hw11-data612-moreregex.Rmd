@@ -1,0 +1,47 @@
+---
+title: "hw11-moreregex-data612"
+author: "Jared 'Jay' Klein and Olivia Triska"
+date: "11/29/2021"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)      
+library(stringr)
+```
+
+1) Use a string R function and the stringr :: words data set to find all four letter words that have the letter v in any location.
+```{r}
+four_letter <- str_subset(words, "^....$")
+str_subset(four_letter, "v")
+```
+
+
+2) Use a string R function and the stringr :: words data set to find all words that begin with a vowel and end with a vowel.
+```{r}
+str_subset(words, "^[aeiou].*[aeiou]$")
+```
+
+3) Use and show a string R function and the stringr :: words data set to find all words that end in x using the str_subset string r function and the str_detect string r function.
+```{r}
+str_subset(words, "x$")
+str_detect(words, "x$")
+```
+
+4) Use and show a string R function and the stringr :: words data set to find all words that contain the four vowels a, e, i, and o.
+```{r}
+words_with_a <- str_subset(words, "a+")
+words_with_a_i <- str_subset(words_with_a, "i+")
+words_with_a_i_e <- str_subset(words_with_a_i, "e+")
+str_subset(words_with_a_i_e, "o+")
+```
+
+5) Use and show a string R function and the stringr :: words data set to confirm or disprove that the letter q is always followed by the letter u
+```{r}
+str_subset(words, "qu")
+str_subset(words, "q(?!u)")
+```
+

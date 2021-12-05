@@ -1,0 +1,85 @@
+---
+title: "cw10-data612"
+author: "Jared 'Jay' Klein"
+date: "11/8/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(dplyr)
+```
+1 Use R code to remove the double quotes from the given string.  "American"
+
+```{r}
+noquote("American")
+```
+
+
+2  Use R code to determine the length of the following string  "American"
+
+```{r}
+str_length("American")
+```
+
+3  Use R code to join the following three strings.  "Pre", "si",  "dent".  Your answer should be 
+one string 
+
+```{r}
+str_c("Pre", "si", "dent", sep = "")
+```
+
+
+4  Use and show R code to select the last three letters of the string  "University"
+
+```{r}
+str_sub("University", -3, -1)
+```
+
+
+5  Use and show R code to capitalize all letters of the string  "florida"
+
+```{r}
+str_to_upper("florida")
+```
+
+
+6  Use and show R code to produce all words that have exactly 7 letters from the string R :: 
+words data set.
+
+```{r}
+words = stringr::words
+
+str_subset(words, "^.......$")
+```
+
+
+7  Use and show R code to produce all 7 letter words that start with b from the string R :: 
+words data set
+
+```{r}
+str_subset(words, "^b......$")
+```
+
+
+8  Use the string_view function to identify and output the string  "Atlanta",  from the 
+collection of strings  "Boston", "Baltimore", "Houston", "Atlanta", and "Richmond".
+
+```{r}
+library(htmlwidgets)
+
+str_view(c("Boston", "Baltimore", "Houston", "Atlanta", "Richmond"), "^Atlanta$")
+```
+
+
+9  Use and show R code to produce all words that begin with a vowel (a,e,i,o,u) from the  
+string R :: words data set
+
+```{r}
+str_subset(words, "^[a,e,i,o,u]")
+```
+
+

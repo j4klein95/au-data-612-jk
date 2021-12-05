@@ -1,0 +1,41 @@
+---
+title: "cw-regexmatches-data612"
+author: "Jared 'Jay' Klein"
+date: "11/15/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(stringr)
+```
+
+1. **Given the following vector of strings;  c( “boxing” , “tennis”,  “football”, “rugby”), create a regular expression that will match the pattern  ball  in all possible strings.  Use R code that features a stringr**
+
+```{r}
+v1 <- c("boxing", "tennis", "football", "rugby")
+str_view(v1, "ball")
+```
+2. **Given the following vector of strings;  c( “baseball” , “volleyball”,  “football”), create a regular expression that will match the pattern  of any letter to the immediate right of the letter e  in all possible strings.  Use R code that features a stringr function to confirm your answer.**
+
+```{r}
+v2 <- c("baseball" , "volleyball",  "football")
+
+str_view(v2, "e.")
+```
+
+3. **Given the following vector of strings;  c( “baseball” , “volleyball”,  “football”), create a regular expression that will match a starting letter of  v  for all possible strings of the vector.  Use R code that features a stringr function to confirm your answer.**
+
+```{r}
+str_view(v2, "^v[a-zA-Z0-9]+")
+```
+
+4. **What regular expression will be produced from the string   "\"\"\"\\"**
+
+*A string without double quotes. So essentially writeLines*
+
+5. **Describe in words what the regular expression,   ( . . . )\\1 , will match**
+
+*Three letters as a group where the three letters repeat once.*
